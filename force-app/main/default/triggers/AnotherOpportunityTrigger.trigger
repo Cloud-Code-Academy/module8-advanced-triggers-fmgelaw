@@ -64,7 +64,7 @@ trigger AnotherOpportunityTrigger on Opportunity (before insert, after insert, b
                 if (updatedOpp.StageName != null && updatedOpp.StageName != oldOpp.StageName){
                     Opportunity opp = new Opportunity();
                     opp.Id = updatedOpp.Id;
-                    opp.Description = (oldOpp.Description ?? '')  + '\n Stage Change:' + updatedOpp.StageName + ':' + DateTime.now().format();
+                    opp.Description += '\n Stage Change:' + updatedOpp.StageName + ':' + DateTime.now().format();
                     oppToUpdate.add(opp);
                 }
                 //}                
