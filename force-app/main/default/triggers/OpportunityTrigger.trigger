@@ -17,12 +17,14 @@ Remember, whichever option you choose, ensure that the trigger is activated and 
 */
 trigger OpportunityTrigger on Opportunity (before update, after update, before delete) {
 
+    //new OpportunityTriggerHandler().run();
+    
     /*
     * Opportunity Trigger
     * When an opportunity is updated validate that the amount is greater than 5000.
     * Trigger should only fire on update.
     */
-    if (Trigger.isUpdate && Trigger.isBefore){
+   if (Trigger.isUpdate && Trigger.isBefore){
         for(Opportunity opp : Trigger.new){
             if(opp.Amount < 5000){
                 opp.addError('Opportunity amount must be greater than 5000');
@@ -41,7 +43,7 @@ trigger OpportunityTrigger on Opportunity (before update, after update, before d
         for(Opportunity opp : Trigger.old){
             if(opp.StageName == 'Closed Won'){
                 if(accounts.get(opp.AccountId).Industry == 'Banking'){
-                    opp.addError('Cannot delete a closed won opportunity for a banking account');
+                    opp.addError('Cannot delete closed opportunity for a banking account');
                 }
             }
         }
