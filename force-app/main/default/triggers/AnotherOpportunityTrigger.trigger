@@ -64,12 +64,13 @@ trigger AnotherOpportunityTrigger on Opportunity (before insert, after insert, b
                 if (updatedOpp.StageName != null && updatedOpp.StageName != oldOpp.StageName){
                     Opportunity opp = new Opportunity();
                     opp.Id = updatedOpp.Id;
-                    opp.Description += '\n Stage Change:' + updatedOpp.StageName + ':' + DateTime.now().format();
+                    String oldDescription = oldOpp.Description == null ? '' : oldOpp.Description;
+                    opp.Description = oldDescription + '\n Stage Change:' + updatedOpp.StageName + ':' + DateTime.now().format();
                     oppToUpdate.add(opp);
                 }
                 //}                
             }
-            if(OpportunityPreventRecursion.hasRun = false) {
+            if(oppToUpdate.isEmpty() && !OpportunityPreventRecursion.hasRun) {
                 OpportunityPreventRecursion.hasRun = true;
                 update oppToUpdate;
             }
