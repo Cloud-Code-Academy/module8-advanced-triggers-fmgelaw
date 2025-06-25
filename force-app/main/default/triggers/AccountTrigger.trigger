@@ -50,7 +50,7 @@ trigger AccountTrigger on Account (before insert, after insert) {
     * Email = 'default@email.com'
     * Trigger should only fire on insert.
     */    
-    if(Trigger.isAfter && Trigger.isInsert){     
+    if (Trigger.isAfter && Trigger.isInsert) {     
         AccountHelper.defaultContact(Trigger.new);
     }
 }
